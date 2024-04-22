@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Brackets function</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet"> 
+</head>
+
+<body class="p-5">
+    <div id="app">
+        <h1 class="mb-4">Приложение для проверки скобок</h1>
+
+        <form @submit.prevent="sendData" class="form-inline align-items-center">
+            <div class="form-group col-6 p-0">
+                <input v-model="inputValue" type="text" class="form-control col-12 " id="exampleInput"
+                    placeholder="Введите выражение" />
+            </div>
+            <button type="submit" class="btn btn-primary ml-4">Проверить</button>
+            <p class="mt-0 mb-0 ml-4" v-if="errorMessage || result !== null">{{ errorMessage ? errorMessage : 'Результат: ' + result }}</p>
+        </form>
+        <div class="row">
+            <div class="col-12" style="margin-top: 20px;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-1">ID</th>
+                            <th class="col-7">Выражение</th>
+                            <th class="col-2">Результат</th>
+                            <th class="col-2">Удалить результат</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="expression in expressions" :key="expression.expressionID">
+                            <td>{{ expression.expressionID }}</td>
+                            <td>{{ expression.expression }}</td>
+                            <td>{{ expression.result === '1' ? 'верно' : 'не верно' }}</td>
+                            <td><button @click="deleteExpression(expression.expressionID)" class="btn btn-danger btn-sm">Удалить</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

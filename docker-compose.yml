@@ -1,0 +1,23 @@
+version: '3'
+services:
+  php:
+    image: php:7.4-fpm
+    build:
+      context: ./docker/php
+    volumes:
+      - "./src:/var/www/html"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - "./src:/var/www/html"
+      - './docker/nginx/conf.d:/etc/nginx/conf.d'
+
+  mariadb:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - './docker/volume/mariadb:/var/lib/mysql'
