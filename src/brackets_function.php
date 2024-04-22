@@ -1,15 +1,5 @@
 <?php
 
-// Если это предварительный запрос OPTIONS, просто отправляем ответ с кодом 200 и выходим
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
-
-// Отправляем заголовки до вывода содержимого страницы
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json");
-
 require_once 'db_connection.php';
 
 function brackets($connection, $string) {
@@ -62,19 +52,19 @@ function brackets($connection, $string) {
 }
 
 
-// Getting data from POST request
+// getting data from POST request
 $inputData = json_decode(file_get_contents('php://input'), true);
 
-// Check that the data has been transmitted
+// check that the data has been transmitted
 if (isset($inputData['data'])) {
-   // Checking the availability of data in the request
+   // checking the availability of data in the request
     $data = trim($inputData['data']);
 
     if (empty($data)) {
         die(json_encode(array("error" => "Empty data received")));
     }
 
-    // Call brackets function
+    // call brackets function
     $result = brackets($connection, $data);
 
     // return result in JSON 

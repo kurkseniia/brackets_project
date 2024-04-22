@@ -4,10 +4,10 @@ $username = "root";
 $password = "root";
 $database_name = "brackets"; 
 
-// Create connection 
+// create connection 
 $connection = new mysqli($servername, $username, $password, $database_name);
 
-// Checking connection
+// checking connection
 if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }

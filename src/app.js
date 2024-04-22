@@ -25,7 +25,7 @@ var app = new Vue({
         async sendData() {
             if (!this.inputValue.trim()) {
                 this.errorMessage = "Пожалуйста, введите выражение";
-                this.result = null; // Очищаем результат, если поле ввода пустое
+                this.result = null; // clear result if input is empty
                 return;
             }
             try {
@@ -34,7 +34,7 @@ var app = new Vue({
                 });
                 if (response && response.data) {    
                     this.result = response.data;
-                    this.errorMessage = ""; // Очищаем сообщение об ошибке, если все прошло успешно
+                    this.errorMessage = ""; // clear error message if everything was successful
                     this.fetchData();
                 } else {
                     this.errorMessage = "Пустой ответ сервера или отсутствует data в ответе";
@@ -50,7 +50,7 @@ var app = new Vue({
                 expressionID: expressionID,
             });
             if (response && response.data) {
-                // Обновляем данные после удаления строки
+                // Updat data after deleting the row
                 this.fetchData();
             } else {
                 this.errorMessage = "Пустой ответ сервера";

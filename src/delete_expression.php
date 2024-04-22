@@ -1,24 +1,23 @@
 <?
 require_once 'db_connection.php';
 
-// получаем данные из POST-запроса
+// getting data from a POST request
 $inputData = json_decode(file_get_contents('php://input'), true);
 
-// проверяем, что данные были переданы
+// check that the data has been sent
 if (isset($inputData['expressionID'])) {
-    // проверяем наличие ID в запросе
+    // checking for the ID in the request
     $expressionID = $inputData['expressionID'];
     
-    // подготовка запроса для удаления записи
+    // preparing request to delete a record
     $sqlDelete = "DELETE FROM expressionsHistory WHERE expressionID = $expressionID";
 
-    // выполнение запроса
+    // making request
     try {
         if (!$connection->query($sqlDelete)) {
-            // обработка ошибки выполнения запроса
             throw new Exception("Error executing query: " . $connection->error);
         }
-        // возвращаем успешный результат удаления
+        // returning a successful deletion result
         echo json_encode("Success");
     } catch (Exception $e) {
         die(json_encode(array("error" => $e->getMessage ())));
