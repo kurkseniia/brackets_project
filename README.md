@@ -8,6 +8,12 @@ An application for checking the correct positioning of brackets
 
 Before running the application, make sure you have Docker installed on your computer. You can download and install Docker from the [official Docker website](https://www.docker.com/get-started).
 
+### Building Docker Image for PHP 7.4-FPM
+
+```bash
+docker build -t php:7.4-fpm -f docker/php/Dockerfile .
+```
+
 ### Building Docker Image
 
 ```bash
