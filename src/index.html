@@ -38,7 +38,7 @@
                         <tr v-for="expression in expressions" :key="expression.expressionID">
                             <td>{{ expression.expressionID }}</td>
                             <td>{{ expression.expression }}</td>
-                            <td>{{ expression.result === '1' ? 'верно' : 'не верно' }}</td>
+                            <td>{{ expression.result === 1 ? 'верно' : 'не верно' }}</td>
                             <td><button @click="deleteExpression(expression.expressionID)" class="btn btn-danger btn-sm">Удалить</button></td>
                         </tr>
                     </tbody>

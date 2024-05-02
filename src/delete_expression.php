@@ -1,4 +1,4 @@
-<?
+<?php
 require_once 'db_connection.php';
 
 // getting data from a POST request
@@ -8,27 +8,38 @@ $inputData = json_decode(file_get_contents('php://input'), true);
 if (isset($inputData['expressionID'])) {
     // checking for the ID in the request
     $expressionID = $inputData['expressionID'];
-    
-    // preparing request to delete a record
-    $sqlDelete = "DELETE FROM expressionsHistory WHERE expressionID = $expressionID";
 
-    // making request
-    try {
-        if (!$connection->query($sqlDelete)) {
-            throw new Exception("Error executing query: " . $connection->error);
-        }
-        // returning a successful deletion result
-        echo json_encode("Success");
-    } catch (Exception $e) {
-        die(json_encode(array("error" => $e->getMessage ())));
+    // preparing request to delete record
+    $sqlDelete = "DELETE FROM expressionsHistory WHERE expressionID = ?";
+
+    // prepare statement
+    $stmt = $connection->prepare($sqlDelete);
+
+    // bind parameter and execute statement
+    $stmt->bind_param("i", $expressionID);
+    $stmt->execute();
+
+    // check for errors
+    if ($stmt->errno) {
+        die(json_encode(array("error" => "Error executing query: " . $stmt->error)));
     }
+
+    // close the statement
+    $stmt->close();
+
+    // returning a successful deletion result
+    echo json_encode("Success");
 } else {
+    // no expressionID received
     echo json_encode(array("error" => "No expressionID received"));
 }
 
+// resetting auto-increment and reordering expressionID
 $sqlReset = "SET @num := 0;
-        UPDATE expressionsHistory SET expressionID = @num := (@num + 1);
-        ALTER TABLE expressionsHistory AUTO_INCREMENT = 1;";
+             UPDATE expressionsHistory SET expressionID = @num := (@num + 1);
+             ALTER TABLE expressionsHistory AUTO_INCREMENT = 1;";
+
+// execute the reset query
 if (!$connection->multi_query($sqlReset)) {
     die(json_encode(array("error" => "Error executing query: " . $connection->error)));
 }
