@@ -28,15 +28,15 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th class="col-1">ID</th>
+                            <th class="col-1">№</th>
                             <th class="col-7">Выражение</th>
                             <th class="col-2">Результат</th>
                             <th class="col-2">Удалить результат</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="expression in expressions" :key="expression.expressionID">
-                            <td>{{ expression.expressionID }}</td>
+                        <tr v-for="(expression, index) in expresss"  :key="expression.expressionID">
+                            <td>{{ expressions.length - index }}</td>
                             <td>{{ expression.expression }}</td>
                             <td>{{ expression.result === 1 ? 'верно' : 'не верно' }}</td>
                             <td><button @click="deleteExpression(expression.expressionID)" class="btn btn-danger btn-sm">Удалить</button></td>

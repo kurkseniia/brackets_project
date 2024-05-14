@@ -36,8 +36,7 @@ if (isset($inputData['expressionID'])) {
 
 // resetting auto-increment and reordering expressionID
 $sqlReset = "SET @num := 0;
-             UPDATE expressionsHistory SET expressionID = @num := (@num + 1);
-             ALTER TABLE expressionsHistory AUTO_INCREMENT = 1;";
+             UPDATE expressionsHistory SET expressionID = @num := (@num + 1);";
 
 // execute the reset query
 if (!$connection->multi_query($sqlReset)) {
