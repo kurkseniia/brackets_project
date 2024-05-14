@@ -34,11 +34,4 @@ if (isset($inputData['expressionID'])) {
     echo json_encode(array("error" => "No expressionID received"));
 }
 
-// resetting auto-increment and reordering expressionID
-$sqlReset = "SET @num := 0;
-             UPDATE expressionsHistory SET expressionID = @num := (@num + 1);";
 
-// execute the reset query
-if (!$connection->multi_query($sqlReset)) {
-    die(json_encode(array("error" => "Error executing query: " . $connection->error)));
-}

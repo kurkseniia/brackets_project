@@ -35,7 +35,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(expression, index) in expresss"  :key="expression.expressionID">
+                        <tr v-for="(expression, index) in expressions"  :key="expression.expressionID">
                             <td>{{ expressions.length - index }}</td>
                             <td>{{ expression.expression }}</td>
                             <td>{{ expression.result === 1 ? 'верно' : 'не верно' }}</td>
